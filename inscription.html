@@ -4,8 +4,50 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes, viewport-fit=cover">
     <title>Commande de Carte Virtuelle - Portefeuille Digital Togo</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
-        * {
+        /* ========================================
+           0. FLUID SCALE & VARIABLES
+           ======================================== */
+        :root {
+            --step--2: clamp(0.6rem, 0.55rem + 0.25vw, 0.7rem);
+            --step--1: clamp(0.68rem, 0.64rem + 0.2vw, 0.78rem);
+            --step-0: clamp(0.8rem, 0.75rem + 0.25vw, 0.95rem);
+            --step-1: clamp(0.92rem, 0.84rem + 0.4vw, 1.15rem);
+            --step-2: clamp(1.05rem, 0.92rem + 0.65vw, 1.45rem);
+            --step-3: clamp(1.3rem, 1.1rem + 1vw, 1.85rem);
+            --step-4: clamp(1.6rem, 1.3rem + 1.5vw, 2.4rem);
+
+            --space-3xs: clamp(2px, 0.2vw + 1px, 5px);
+            --space-2xs: clamp(4px, 0.4vw + 2px, 9px);
+            --space-xs: clamp(7px, 0.7vw + 3px, 14px);
+            --space-sm: clamp(11px, 1.2vw + 4px, 20px);
+            --space-md: clamp(16px, 1.8vw + 6px, 30px);
+            --space-lg: clamp(24px, 3vw + 10px, 44px);
+
+            --primary: #1e3c72;
+            --primary-light: #2a5298;
+            --accent: #ff9800;
+            --accent-dark: #f57c00;
+            --success: #4CAF50;
+            --danger: #f44336;
+
+            --text: #333;
+            --text-secondary: #666;
+            --bg: #f5f7fa;
+            --surface: #ffffff;
+            --border: #e0e0e0;
+            --radius-sm: 8px;
+            --radius: 12px;
+            --radius-lg: 16px;
+
+            --font: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            --font-mono: 'JetBrains Mono', 'Consolas', monospace;
+        }
+
+        *,
+        *::before,
+        *::after {
             box-sizing: border-box;
             margin: 0;
             padding: 0;
@@ -13,38 +55,36 @@
 
         body {
             background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            color: #333;
+            font-family: var(--font);
+            color: var(--text);
             line-height: 1.6;
-            padding: 20px;
+            padding: var(--space-sm);
             min-height: 100vh;
+            -webkit-font-smoothing: antialiased;
         }
 
         .container {
             max-width: 1200px;
             margin: 0 auto;
-            background-color: white;
-            border-radius: 20px;
-            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
+            background: var(--surface);
+            border-radius: var(--radius-lg);
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.10);
             overflow: hidden;
             animation: fadeIn 0.5s ease;
         }
 
         @keyframes fadeIn {
-            from {
-                opacity: 0;
-                transform: translateY(20px);
-            }
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
         }
 
+        /* ========================================
+           1. HEADER
+           ======================================== */
         header {
-            background: linear-gradient(135deg, #1e3c72, #2a5298);
+            background: linear-gradient(135deg, var(--primary), var(--primary-light));
             color: white;
-            padding: clamp(30px, 5vw, 50px);
+            padding: var(--space-lg) var(--space-md);
             text-align: center;
             position: relative;
             overflow: hidden;
@@ -57,7 +97,7 @@
             left: -50%;
             width: 200%;
             height: 200%;
-            background: radial-gradient(circle, rgba(255,255,255,0.1) 0%, transparent 70%);
+            background: radial-gradient(circle, rgba(255, 255, 255, 0.10) 0%, transparent 70%);
             animation: pulse 4s ease-in-out infinite;
         }
 
@@ -67,237 +107,361 @@
         }
 
         header h1 {
-            font-size: clamp(24px, 6vw, 36px);
-            margin-bottom: 10px;
+            font-size: var(--step-3);
             position: relative;
+            margin-bottom: var(--space-2xs);
         }
 
         header p {
-            font-size: clamp(14px, 4vw, 18px);
+            font-size: var(--step-0);
             position: relative;
         }
 
         .price-tag {
-            background: linear-gradient(135deg, #ff9800, #f57c00);
+            background: linear-gradient(135deg, var(--accent), var(--accent-dark));
             color: white;
             display: inline-flex;
             align-items: center;
-            gap: 8px;
-            padding: 8px 20px;
+            gap: var(--space-2xs);
+            padding: var(--space-xs) var(--space-md);
             border-radius: 50px;
-            font-weight: bold;
-            margin-top: 15px;
-            font-size: clamp(18px, 5vw, 24px);
+            font-weight: 700;
+            margin-top: var(--space-sm);
+            font-size: var(--step-2);
             position: relative;
-            box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.20);
         }
 
-        .card-details {
-            background: linear-gradient(135deg, #f9f9f9, #ffffff);
-            padding: clamp(15px, 4vw, 25px);
+        /* ========================================
+           2. INFO SECTIONS
+           ======================================== */
+        .info-bar {
+            background: linear-gradient(135deg, #f9f9f9, var(--surface));
+            padding: var(--space-sm) var(--space-md);
             text-align: center;
-            border-bottom: 1px solid #eee;
+            border-bottom: 1px solid var(--border);
         }
 
-        .conditions-section, .fees-info {
-            border-radius: 12px;
-            padding: clamp(15px, 4vw, 20px);
-            margin: clamp(15px, 4vw, 20px);
+        .info-bar p {
+            font-size: var(--step--1);
         }
 
-        .conditions-section {
+        .info-section {
+            border-radius: var(--radius);
+            padding: var(--space-sm) var(--space-md);
+            margin: var(--space-sm) var(--space-md);
+        }
+
+        .info-section--conditions {
             background: linear-gradient(135deg, #fff3cd, #ffeaa7);
             border: 1px solid #ffeaa7;
         }
 
-        .conditions-section h3 {
+        .info-section--conditions h3 {
             color: #856404;
-            margin-bottom: 10px;
+            margin-bottom: var(--space-2xs);
+            font-size: var(--step-0);
         }
 
-        .conditions-section ul {
-            padding-left: clamp(15px, 4vw, 20px);
+        .info-section--conditions ul {
+            padding-left: var(--space-sm);
         }
 
-        .conditions-section li {
-            margin-bottom: 5px;
-            font-size: clamp(12px, 3.5vw, 14px);
+        .info-section--conditions li {
+            margin-bottom: var(--space-3xs);
+            font-size: var(--step--1);
         }
 
-        .fees-info {
+        .info-section--fees {
             background: linear-gradient(135deg, #e7f3ff, #d1ecf1);
             border: 1px solid #b3d9ff;
         }
 
-        .fees-info h3 {
+        .info-section--fees h3 {
             color: #004085;
-            margin-bottom: 10px;
+            margin-bottom: var(--space-2xs);
+            font-size: var(--step-0);
         }
 
         .fees-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-            gap: clamp(10px, 3vw, 15px);
-            margin-top: 10px;
+            grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+            gap: var(--space-xs);
+            margin-top: var(--space-2xs);
         }
 
         .fee-item {
-            background-color: white;
-            padding: clamp(10px, 3vw, 15px);
-            border-radius: 10px;
+            background: var(--surface);
+            padding: var(--space-xs) var(--space-sm);
+            border-radius: var(--radius);
             border: 1px solid #d1ecf1;
             transition: transform 0.3s ease;
+            text-align: center;
         }
 
         .fee-item:hover {
             transform: translateY(-3px);
         }
 
-        .fee-label {
-            font-weight: bold;
+        .fee-item__label {
+            font-weight: 700;
             color: #0c5460;
+            font-size: var(--step--1);
         }
 
-        .fee-value {
+        .fee-item__value {
             color: #155724;
-            font-weight: bold;
-            margin-top: 5px;
+            font-weight: 700;
+            margin-top: var(--space-3xs);
+            font-size: var(--step-1);
         }
 
-        /* Style pour l'affichage des détails de la carte */
-        .card-details-display {
-            background: linear-gradient(135deg, #f0f4ff, #e8eeff);
-            border-radius: 16px;
-            padding: 15px;
-            margin-bottom: 20px;
-            text-align: center;
-            border: 1px solid #c5d5f5;
-            transition: all 0.3s ease;
+        /* ========================================
+           3. TABS
+           ======================================== */
+        .tabs {
+            padding: 0 var(--space-lg);
         }
 
-        .card-details-display.visa {
-            background: linear-gradient(135deg, #1a237e, #283593);
-            color: white;
+        .tab-nav {
+            display: flex;
+            border-bottom: 2px solid var(--border);
+            margin-bottom: var(--space-md);
+            overflow-x: auto;
+            scrollbar-width: none;
+            -ms-overflow-style: none;
+            -webkit-overflow-scrolling: touch;
+            scroll-snap-type: x proximity;
+            position: sticky;
+            top: 0;
+            background: var(--surface);
+            z-index: 50;
         }
 
-        .card-details-display.mastercard {
-            background: linear-gradient(135deg, #000000, #ff5f00);
-            color: white;
+        .tab-nav::-webkit-scrollbar {
+            display: none;
         }
 
-        .card-type-icon {
-            font-size: 40px;
-            margin-bottom: 10px;
+        .tab-nav__btn {
+            flex-shrink: 0;
+            scroll-snap-align: start;
+            padding: var(--space-xs) var(--space-sm);
+            background: none;
+            border: none;
+            border-bottom: 3px solid transparent;
+            font-family: var(--font);
+            font-size: var(--step--1);
+            font-weight: 600;
+            color: var(--text-secondary);
+            cursor: pointer;
+            white-space: nowrap;
+            transition: all 0.25s ease;
+            min-height: 48px;
+            -webkit-tap-highlight-color: transparent;
+            touch-action: manipulation;
+            display: flex;
+            align-items: center;
+            gap: var(--space-2xs);
+            position: relative;
         }
 
-        .card-number-display {
-            font-family: monospace;
-            font-size: 18px;
-            letter-spacing: 2px;
-            margin: 10px 0;
+        .tab-nav__btn--active {
+            border-bottom-color: var(--accent);
+            color: var(--primary);
         }
 
-        /* Formulaire */
+        .tab-nav__btn:hover {
+            color: var(--text);
+        }
+
+        .tab-nav__dot {
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+            background: var(--border);
+            flex-shrink: 0;
+            transition: background 0.3s ease;
+        }
+
+        .tab-nav__dot--done {
+            background: var(--success);
+        }
+
+        .tab-nav__btn--active .tab-nav__dot--done {
+            background: var(--success);
+        }
+
+        .tab-panel {
+            display: none;
+            animation: tabFade 0.3s ease;
+        }
+
+        .tab-panel--active {
+            display: block;
+        }
+
+        @keyframes tabFade {
+            from { opacity: 0; transform: translateX(12px); }
+            to { opacity: 1; transform: translateX(0); }
+        }
+
+        /* ========================================
+           4. FORM
+           ======================================== */
         .form-section {
-            padding: clamp(20px, 5vw, 40px);
+            padding: 0 var(--space-lg) var(--space-md);
+        }
+
+        .section-title {
+            font-size: var(--step-1);
+            margin: 0 0 var(--space-sm) 0;
+            padding-bottom: var(--space-2xs);
+            border-bottom: 3px solid var(--primary-light);
+            color: var(--primary-light);
+            display: inline-block;
         }
 
         .form-group {
-            margin-bottom: clamp(15px, 4vw, 25px);
+            margin-bottom: var(--space-sm);
         }
 
-        label {
+        .form-group label {
             display: block;
-            margin-bottom: 8px;
+            margin-bottom: var(--space-2xs);
             font-weight: 600;
-            color: #444;
-            font-size: clamp(13px, 3.5vw, 15px);
+            color: var(--text);
+            font-size: var(--step--1);
         }
 
         .required::after {
             content: " *";
-            color: #f44336;
+            color: var(--danger);
         }
 
-        input, select, textarea {
+        input,
+        select,
+        textarea {
             width: 100%;
-            padding: clamp(10px, 3vw, 14px) clamp(12px, 3.5vw, 16px);
-            border: 2px solid #e0e0e0;
-            border-radius: 12px;
-            font-size: clamp(14px, 4vw, 16px);
-            transition: all 0.3s ease;
-            background-color: #fafafa;
+            padding: var(--space-xs) var(--space-sm);
+            border: 2px solid var(--border);
+            border-radius: var(--radius);
+            font-size: var(--step-0);
+            font-family: var(--font);
+            transition: all 0.25s ease;
+            background: #fafafa;
+            min-height: 44px;
+            -webkit-tap-highlight-color: transparent;
         }
 
-        input:focus, select:focus, textarea:focus {
-            border-color: #2a5298;
-            background-color: white;
+        input:focus,
+        select:focus,
+        textarea:focus {
+            border-color: var(--primary-light);
+            background: var(--surface);
             outline: none;
-            box-shadow: 0 0 0 3px rgba(42, 82, 152, 0.1);
+            box-shadow: 0 0 0 3px rgba(42, 82, 152, 0.10);
+        }
+
+        input.is-valid,
+        select.is-valid {
+            border-color: var(--success);
+            background: #f1f8e9;
+        }
+
+        textarea {
+            min-height: 80px;
+            resize: vertical;
         }
 
         .form-row {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-            gap: clamp(15px, 4vw, 20px);
+            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+            gap: var(--space-sm);
         }
 
-        /* GPS Section */
+        /* ========================================
+           5. GPS
+           ======================================== */
         .gps-section {
             display: flex;
-            gap: clamp(10px, 3vw, 15px);
+            gap: var(--space-xs);
             flex-wrap: wrap;
         }
 
-        .gps-input {
+        .gps-section__input {
             flex: 2;
             min-width: 200px;
         }
 
-        .gps-button {
-            background: linear-gradient(135deg, #4CAF50, #45a049);
+        .gps-section__btn {
+            background: linear-gradient(135deg, var(--success), #45a049);
             color: white;
             border: none;
-            border-radius: 12px;
-            padding: clamp(10px, 3vw, 14px) clamp(20px, 5vw, 30px);
+            border-radius: var(--radius);
+            padding: var(--space-xs) var(--space-md);
             cursor: pointer;
-            font-size: clamp(14px, 4vw, 16px);
+            font-size: var(--step-0);
             font-weight: 600;
-            transition: all 0.3s ease;
+            font-family: var(--font);
+            transition: all 0.25s ease;
             white-space: nowrap;
             display: inline-flex;
             align-items: center;
-            gap: 8px;
+            gap: var(--space-2xs);
+            min-height: 44px;
+            -webkit-tap-highlight-color: transparent;
+            touch-action: manipulation;
         }
 
-        .gps-button:hover {
+        .gps-section__btn:hover {
             transform: translateY(-2px);
+            box-shadow: 0 6px 16px rgba(76, 175, 80, 0.30);
+        }
+
+        .gps-section__btn:active {
+            transform: translateY(0);
         }
 
         .gps-status {
-            margin-top: 8px;
-            font-size: clamp(12px, 3.5vw, 14px);
-            color: #666;
+            margin-top: var(--space-2xs);
+            font-size: var(--step--1);
+            color: var(--text-secondary);
         }
 
-        .gps-success {
-            color: #4CAF50;
+        .gps-status--success {
+            color: var(--success);
             font-weight: 600;
         }
 
-        /* File Upload */
+        .map-preview {
+            height: clamp(120px, 35vw, 200px);
+            background: linear-gradient(135deg, #e9ecef, #dee2e6);
+            border-radius: var(--radius);
+            margin-top: var(--space-2xs);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--text-secondary);
+            border: 1px solid var(--border);
+            overflow: hidden;
+            font-size: var(--step-0);
+        }
+
+        /* ========================================
+           6. FILE UPLOAD
+           ======================================== */
         .file-upload {
-            border: 2px dashed #ccc;
-            padding: clamp(20px, 5vw, 30px);
+            border: 2px dashed var(--border);
+            padding: var(--space-md);
             text-align: center;
-            border-radius: 16px;
+            border-radius: var(--radius-lg);
             cursor: pointer;
             transition: all 0.3s ease;
-            background: linear-gradient(135deg, #fafafa, #ffffff);
+            background: linear-gradient(135deg, #fafafa, var(--surface));
         }
 
         .file-upload:hover {
-            border-color: #2a5298;
+            border-color: var(--primary-light);
             transform: translateY(-2px);
         }
 
@@ -310,34 +474,38 @@
             display: flex;
             flex-direction: column;
             align-items: center;
-            gap: 10px;
+            gap: var(--space-2xs);
             margin: 0;
+            font-weight: 400;
+            color: var(--text-secondary);
         }
 
-        .file-upload-icon {
-            font-size: clamp(32px, 8vw, 48px);
+        .file-upload__icon {
+            font-size: var(--step-4);
         }
 
         .preview-container {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
-            gap: clamp(15px, 4vw, 20px);
-            margin-top: 20px;
+            grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+            gap: var(--space-sm);
+            margin-top: var(--space-sm);
         }
 
         .preview-box {
             width: 100%;
             max-width: 200px;
-            min-height: 150px;
-            aspect-ratio: 4/3;
-            border: 2px solid #e0e0e0;
-            border-radius: 12px;
+            min-height: 120px;
+            aspect-ratio: 4 / 3;
+            border: 2px solid var(--border);
+            border-radius: var(--radius);
             overflow: hidden;
             display: flex;
             align-items: center;
             justify-content: center;
-            background: linear-gradient(135deg, #f9f9f9, #ffffff);
+            background: linear-gradient(135deg, #f9f9f9, var(--surface));
             margin: 0 auto;
+            font-size: var(--step-0);
+            color: var(--text-secondary);
         }
 
         .preview-box img {
@@ -346,96 +514,370 @@
             object-fit: contain;
         }
 
-        .map-preview {
-            height: clamp(150px, 40vw, 250px);
-            background: linear-gradient(135deg, #e9ecef, #dee2e6);
-            border-radius: 12px;
-            margin-top: 10px;
+        /* ========================================
+           7. VIRTUAL CARD PREVIEW (premium)
+           ======================================== */
+        .vc-wrapper {
+            margin-bottom: var(--space-sm);
+            perspective: 1000px;
+        }
+
+        .virtual-card {
+            position: relative;
+            width: 100%;
+            max-width: 340px;
+            aspect-ratio: 1.586 / 1;
+            border-radius: var(--radius-lg);
+            padding: clamp(14px, 2vw + 4px, 22px) clamp(12px, 1.5vw + 4px, 18px);
+            color: white;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            overflow: hidden;
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.15), inset 0 1px 0 rgba(255, 255, 255, 0.08);
+            transition: transform 0.5s cubic-bezier(0.23, 1, 0.32, 1), box-shadow 0.5s cubic-bezier(0.23, 1, 0.32, 1);
+            transform-style: preserve-3d;
+            cursor: default;
+            user-select: none;
+            -webkit-tap-highlight-color: transparent;
+            margin: 0 auto;
+        }
+
+        .virtual-card:hover {
+            transform: translateY(-6px) scale(1.02) rotateX(2deg) rotateY(-2deg);
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.22), inset 0 1px 0 rgba(255, 255, 255, 0.10);
+        }
+
+        .virtual-card--visa {
+            background: linear-gradient(135deg, #1a237e 0%, #283593 40%, #1a237e 70%, #3949ab 100%);
+        }
+
+        .virtual-card--mastercard {
+            background: linear-gradient(135deg, #1a1a1a 0%, #000000 40%, #1a1a1a 70%, #000000 100%);
+        }
+
+        .virtual-card::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background:
+                radial-gradient(ellipse at 75% 20%, rgba(255, 255, 255, 0.10) 0%, transparent 50%),
+                radial-gradient(ellipse at 25% 80%, rgba(255, 255, 255, 0.05) 0%, transparent 40%),
+                repeating-linear-gradient(90deg, transparent, transparent 2px, rgba(255, 255, 255, 0.015) 2px, rgba(255, 255, 255, 0.015) 3px),
+                repeating-linear-gradient(0deg, transparent, transparent 2px, rgba(255, 255, 255, 0.015) 2px, rgba(255, 255, 255, 0.015) 3px);
+            pointer-events: none;
+        }
+
+        .virtual-card::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 60%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.06), transparent);
+            transform: skewX(-20deg);
+            pointer-events: none;
+            transition: left 0.6s ease;
+        }
+
+        .virtual-card:hover::after {
+            left: 150%;
+        }
+
+        .virtual-card__top {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            position: relative;
+            z-index: 1;
+        }
+
+        .vc-top-left {
+            display: flex;
+            align-items: center;
+            gap: clamp(6px, 0.6vw + 2px, 12px);
+        }
+
+        .virtual-card__chip {
+            width: clamp(28px, 3vw + 4px, 38px);
+            height: clamp(20px, 2.2vw + 4px, 28px);
+            background: linear-gradient(145deg, #e8c840 0%, #f5e07a 30%, #d4a820 60%, #c49a1a 100%);
+            border-radius: 5px;
+            position: relative;
+            overflow: hidden;
+            flex-shrink: 0;
+            box-shadow: inset 0 1px 2px rgba(255, 255, 255, 0.3), inset 0 -1px 2px rgba(0, 0, 0, 0.15);
+        }
+
+        .virtual-card__chip::before {
+            content: '';
+            position: absolute;
+            inset: 4px 5px;
+            border: 1px solid rgba(0, 0, 0, 0.18);
+            border-radius: 3px;
+        }
+
+        .virtual-card__chip::after {
+            content: '';
+            position: absolute;
+            left: 50%;
+            top: 4px;
+            bottom: 4px;
+            width: 1.5px;
+            background: rgba(0, 0, 0, 0.10);
+        }
+
+        .chip-inner {
+            position: absolute;
+            inset: 7px 9px;
+            display: flex;
+            gap: 2px;
+        }
+
+        .chip-inner span {
+            flex: 1;
+            border: 0.5px solid rgba(0, 0, 0, 0.06);
+            border-radius: 1px;
+        }
+
+        .vc-contactless {
+            width: clamp(18px, 2vw + 4px, 26px);
+            height: clamp(18px, 2vw + 4px, 26px);
             display: flex;
             align-items: center;
             justify-content: center;
-            color: #666;
-            border: 1px solid #ddd;
-            overflow: hidden;
         }
 
-        /* Buttons */
-        .buttons {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-            gap: clamp(15px, 4vw, 20px);
-            margin-top: 30px;
+        .vc-contactless i {
+            font-size: clamp(0.85rem, 1vw + 0.2rem, 1.3rem);
+            opacity: 0.6;
+            transform: rotate(90deg);
         }
 
-        .btn {
-            padding: clamp(12px, 4vw, 16px);
-            border: none;
-            border-radius: 12px;
-            font-size: clamp(14px, 4vw, 16px);
-            font-weight: 700;
-            cursor: pointer;
-            transition: all 0.3s ease;
-            display: inline-flex;
-            align-items: center;
-            justify-content: center;
-            gap: 10px;
+        .virtual-card__brand {
+            font-size: clamp(0.8rem, 0.9vw + 0.25rem, 1.2rem);
+            font-weight: 800;
+            letter-spacing: 1px;
+            opacity: 0.90;
         }
 
-        .btn-payment {
-            background: linear-gradient(135deg, #ff9800, #f57c00);
+        .virtual-card--visa .virtual-card__brand {
             color: white;
         }
 
-        .btn-payment:hover {
-            transform: translateY(-3px);
-            box-shadow: 0 8px 20px rgba(255, 152, 0, 0.4);
+        .virtual-card--mastercard .virtual-card__brand {
+            color: #ff5f00;
+        }
+
+        .virtual-card__number {
+            font-family: var(--font-mono);
+            font-size: clamp(0.7rem, 0.9vw + 0.15rem, 1.1rem);
+            letter-spacing: clamp(1.5px, 0.3vw + 1px, 4px);
+            text-shadow: 0 1px 4px rgba(0, 0, 0, 0.18);
+            position: relative;
+            z-index: 1;
+            font-weight: 500;
+            word-spacing: clamp(3px, 0.5vw + 2px, 8px);
+        }
+
+        .virtual-card__cvv {
+            font-family: var(--font-mono);
+            font-size: clamp(0.5rem, 0.6vw + 0.1rem, 0.75rem);
+            opacity: 0.6;
+            letter-spacing: 1px;
+            position: relative;
+            z-index: 1;
+        }
+
+        .virtual-card__bottom {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-end;
+            position: relative;
+            z-index: 1;
+            gap: var(--space-2xs);
+        }
+
+        .virtual-card__holder {
+            font-size: clamp(0.4rem, 0.35rem + 0.25vw, 0.6rem);
+            text-transform: uppercase;
+            letter-spacing: 1.2px;
+            opacity: 0.75;
+            min-width: 0;
+        }
+
+        .virtual-card__holder strong {
+            display: block;
+            font-size: clamp(0.5rem, 0.45rem + 0.35vw, 0.8rem);
+            letter-spacing: 1.5px;
+            opacity: 1;
+            margin-top: 2px;
+            font-weight: 600;
+        }
+
+        .virtual-card__expiry {
+            font-size: clamp(0.4rem, 0.35rem + 0.25vw, 0.6rem);
+            text-transform: uppercase;
+            letter-spacing: 1.2px;
+            opacity: 0.75;
+            text-align: right;
+            flex-shrink: 0;
+        }
+
+        .virtual-card__expiry strong {
+            display: block;
+            font-family: var(--font-mono);
+            font-size: clamp(0.5rem, 0.45rem + 0.35vw, 0.8rem);
+            letter-spacing: 1.5px;
+            opacity: 1;
+            margin-top: 2px;
+        }
+
+        .vc-footer {
+            position: absolute;
+            bottom: clamp(10px, 1.2vw + 4px, 16px);
+            right: clamp(12px, 1.2vw + 5px, 18px);
+            display: flex;
+            align-items: center;
+            gap: clamp(6px, 0.8vw + 2px, 12px);
+            z-index: 0;
+        }
+
+        .virtual-card__flag {
+            font-size: var(--step--2);
+            opacity: 0.35;
+        }
+
+        .virtual-card__dot {
+            opacity: 0.15;
+        }
+
+        .virtual-card__dot--visa {
+            width: clamp(22px, 2.2vw + 4px, 32px);
+            height: clamp(22px, 2.2vw + 4px, 32px);
+            border-radius: 50%;
+            background: radial-gradient(circle at 30% 30%, #fff, #1a1f71);
+        }
+
+        .virtual-card__dot--mc {
+            position: relative;
+            width: clamp(18px, 2vw + 4px, 28px);
+            height: clamp(18px, 2vw + 4px, 28px);
+        }
+
+        .virtual-card__dot--mc::before {
+            content: '';
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            border-radius: 50%;
+            background: #eb001b;
+            left: 0;
+        }
+
+        .virtual-card__dot--mc::after {
+            content: '';
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            border-radius: 50%;
+            background: #ff5f00;
+            left: clamp(6px, 0.8vw + 2px, 10px);
+            opacity: 0.7;
+        }
+
+        /* ========================================
+           8. TAB NAVIGATION BUTTONS
+           ======================================== */
+        .tab-actions {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: var(--space-sm);
+            margin-top: var(--space-md);
+            padding-top: var(--space-sm);
+            border-top: 1px solid var(--border);
+        }
+
+        .tab-actions__left,
+        .tab-actions__right {
+            display: flex;
+            gap: var(--space-xs);
+        }
+
+        .btn {
+            padding: var(--space-xs) var(--space-md);
+            border: none;
+            border-radius: var(--radius);
+            font-size: var(--step-0);
+            font-weight: 700;
+            cursor: pointer;
+            font-family: var(--font);
+            transition: all 0.25s ease;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: var(--space-2xs);
+            min-height: 48px;
+            -webkit-tap-highlight-color: transparent;
+            touch-action: manipulation;
+        }
+
+        .btn:hover {
+            transform: translateY(-2px);
         }
 
         .btn:active {
             transform: translateY(0);
         }
 
-        .section-title {
-            font-size: clamp(18px, 5vw, 24px);
-            margin: clamp(25px, 6vw, 40px) 0 clamp(15px, 4vw, 20px) 0;
-            padding-bottom: 10px;
-            border-bottom: 3px solid #2a5298;
-            color: #2a5298;
-            display: inline-block;
+        .btn--prev {
+            background: var(--border);
+            color: var(--text);
         }
 
-        footer {
-            background: linear-gradient(135deg, #f1f1f1, #e9ecef);
-            padding: clamp(20px, 5vw, 30px);
-            text-align: center;
-            font-size: clamp(12px, 3.5vw, 14px);
-            color: #666;
+        .btn--next {
+            background: var(--primary-light);
+            color: white;
         }
 
-        footer .conditions-section {
-            margin: 0 0 20px 0;
-            text-align: left;
+        .btn--next:hover {
+            box-shadow: 0 6px 16px rgba(42, 82, 152, 0.30);
         }
 
+        .btn--primary {
+            background: linear-gradient(135deg, var(--accent), var(--accent-dark));
+            color: white;
+        }
+
+        .btn--primary:hover {
+            box-shadow: 0 8px 20px rgba(255, 152, 0, 0.40);
+        }
+
+        .btn--hidden {
+            visibility: hidden;
+        }
+
+        /* ========================================
+           9. LOADING OVERLAY
+           ======================================== */
         .loading-overlay {
             position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: rgba(0,0,0,0.8);
+            inset: 0;
+            background: rgba(0, 0, 0, 0.80);
             display: flex;
             align-items: center;
             justify-content: center;
             z-index: 9999;
             flex-direction: column;
-            gap: 20px;
+            gap: var(--space-sm);
         }
 
         .loading-spinner {
             width: 50px;
             height: 50px;
-            border: 5px solid rgba(255,255,255,0.3);
+            border: 5px solid rgba(255, 255, 255, 0.30);
             border-top-color: white;
             border-radius: 50%;
             animation: spin 1s linear infinite;
@@ -447,16 +889,80 @@
 
         .loading-text {
             color: white;
-            font-size: 18px;
+            font-size: var(--step-1);
         }
 
-        @media (max-width: 768px) {
-            body { padding: 10px; }
+        /* ========================================
+           10. FOOTER
+           ======================================== */
+        footer {
+            background: linear-gradient(135deg, #f1f1f1, #e9ecef);
+            padding: var(--space-md);
+            text-align: center;
+            font-size: var(--step--1);
+            color: var(--text-secondary);
+        }
+
+        footer .info-section {
+            margin: 0 0 var(--space-sm) 0;
+            text-align: left;
+        }
+
+        /* ========================================
+           11. RESPONSIVE
+           ======================================== */
+        @media (max-width: 899px) {
+            .tabs { padding: 0 var(--space-md); }
+            .form-section { padding: 0 var(--space-md) var(--space-md); }
+            .info-section { margin: var(--space-xs) var(--space-sm); }
+        }
+
+        @media (max-width: 767px) {
+            body { padding: var(--space-xs); }
             .form-row { grid-template-columns: 1fr; }
             .gps-section { flex-direction: column; }
-            .gps-button { width: 100%; justify-content: center; }
-            .buttons { grid-template-columns: 1fr; }
+            .gps-section__btn { width: 100%; justify-content: center; }
+            .fees-grid { grid-template-columns: 1fr 1fr; }
+            .preview-container { grid-template-columns: 1fr; }
+            .preview-box { max-width: 100%; }
+            .virtual-card:hover { transform: translateY(-4px) scale(1.01); }
+            .tab-nav__btn { padding: var(--space-xs) var(--space-xs); font-size: var(--step--2); }
+            .tab-actions { flex-direction: column; align-items: stretch; }
+            .tab-actions__left,
+            .tab-actions__right { justify-content: center; }
+            .tab-actions__left .btn,
+            .tab-actions__right .btn { flex: 1; }
+        }
+
+        @media (max-width: 479px) {
             .fees-grid { grid-template-columns: 1fr; }
+            header h1 { font-size: var(--step-2); }
+            .price-tag { font-size: var(--step-1); }
+            .section-title { font-size: var(--step-0); }
+            .virtual-card__chip::before { inset: 3px 4px; }
+            .chip-inner { display: none; }
+            .virtual-card:hover { transform: none; }
+            .tabs { padding: 0 var(--space-xs); }
+            .form-section { padding: 0 var(--space-xs) var(--space-sm); }
+            .tab-nav__btn { font-size: var(--step--2); padding: var(--space-2xs) var(--space-2xs); min-height: 40px; }
+            .tab-nav__btn span.tab-label { display: none; }
+        }
+
+        @media (max-width: 359px) {
+            .vc-contactless { display: none; }
+            .virtual-card__dot { display: none; }
+            .virtual-card__cvv { display: none; }
+            .vc-footer { display: none; }
+            .btn { font-size: var(--step--1); min-height: 42px; padding: var(--space-2xs) var(--space-xs); }
+            input, select, textarea { font-size: var(--step--1); padding: var(--space-2xs) var(--space-xs); min-height: 40px; }
+        }
+
+        @media (hover: none) and (pointer: coarse) {
+            .virtual-card:hover { transform: none; }
+            .fee-item:hover { transform: none; }
+            .file-upload:hover { transform: none; }
+            .gps-section__btn:hover { transform: none; }
+            .btn:hover { transform: none; }
         }
     </style>
 </head>
@@ -469,118 +975,193 @@
                 <span>💰</span> 5000 FCFA
             </div>
         </header>
-        
-        <div class="card-details">
-            <p><strong>✨ Carte virtuelle valide 5 ans</strong></p>
-            <p>🔒 Paiement sécurisé • ⚡ Livraison immédiate</p>
+
+        <div class="info-bar">
+            <p><strong>✨ Carte virtuelle valide 5 ans</strong> &middot; 🔒 Paiement sécurisé &middot; ⚡ Livraison immédiate</p>
         </div>
-        
-        <div class="conditions-section">
+
+        <div class="info-section info-section--conditions">
             <h3>📋 Conditions d'utilisation</h3>
             <ul>
                 <li>✅ Carte valable 5 ans à partir de l'activation</li>
                 <li>💰 Minimum de chargement : 1000 FCFA</li>
                 <li>💎 Maximum de chargement : 10 000 FCFA</li>
                 <li>🔐 Paiements en ligne sécurisés</li>
+                <li id="feeConditionCharge">💳 Frais de chargement : 5%</li>
+                <li id="feeConditionWithdraw">💳 Frais de retrait : 9%</li>
+                <li id="feeConditionMaint">💳 Maintenance : <span id="feeCondMaintValue">50</span> FCFA/mois</li>
             </ul>
         </div>
-        
-        <div class="fees-info">
+
+        <div class="info-section info-section--fees">
             <h3>💸 Frais applicables</h3>
-            <div class="fees-grid">
-                <div class="fee-item"><div class="fee-label">📈 Frais de chargement</div><div class="fee-value">5%</div></div>
-                <div class="fee-item"><div class="fee-label">🏧 Frais de retrait</div><div class="fee-value">9%</div></div>
-                <div class="fee-item"><div class="fee-label">🎫 Frais d'acquisition</div><div class="fee-value">5000 FCFA</div></div>
-                <div class="fee-item"><div class="fee-label">🔧 Frais de maintenance</div><div class="fee-value">5 FCFA/mois</div></div>
+            <div class="fees-grid" id="feesGrid">
+                <div class="fee-item"><div class="fee-item__label">📈 Chargement</div><div class="fee-item__value" id="feeCharge">5%</div></div>
+                <div class="fee-item"><div class="fee-item__label">🏧 Retrait</div><div class="fee-item__value" id="feeWithdraw">9%</div></div>
+                <div class="fee-item"><div class="fee-item__label">🎫 Acquisition</div><div class="fee-item__value" id="feeAcquisition">5000 FCFA</div></div>
+                <div class="fee-item"><div class="fee-item__label">🔧 Maintenance</div><div class="fee-item__value" id="feeMaintenance">—</div></div>
             </div>
         </div>
-        
-        <div class="form-section">
+
+        <div class="tabs">
+            <!-- Tab navigation -->
+            <nav class="tab-nav" role="tablist">
+                <button class="tab-nav__btn tab-nav__btn--active" role="tab" aria-selected="true" data-tab="personal">
+                    <span class="tab-nav__dot tab-nav__dot--done">1</span>
+                    <span class="tab-label">Identité</span>
+                </button>
+                <button class="tab-nav__btn" role="tab" aria-selected="false" data-tab="idcard">
+                    <span class="tab-nav__dot">2</span>
+                    <span class="tab-label">Pièce</span>
+                </button>
+                <button class="tab-nav__btn" role="tab" aria-selected="false" data-tab="address">
+                    <span class="tab-nav__dot">3</span>
+                    <span class="tab-label">Adresse</span>
+                </button>
+                <button class="tab-nav__btn" role="tab" aria-selected="false" data-tab="docs">
+                    <span class="tab-nav__dot">4</span>
+                    <span class="tab-label">Documents</span>
+                </button>
+                <button class="tab-nav__btn" role="tab" aria-selected="false" data-tab="card">
+                    <span class="tab-nav__dot">5</span>
+                    <span class="tab-label">Carte</span>
+                </button>
+            </nav>
+
             <form id="orderForm">
-                <h2 class="section-title">👤 Informations personnelles</h2>
-                <div class="form-row">
-                    <div class="form-group"><label for="firstName" class="required">Prénom</label><input type="text" id="firstName" name="firstName" required></div>
-                    <div class="form-group"><label for="lastName" class="required">Nom</label><input type="text" id="lastName" name="lastName" required></div>
-                </div>
-                <div class="form-row">
-                    <div class="form-group"><label for="birthDate" class="required">Date de naissance</label><input type="date" id="birthDate" name="birthDate" required></div>
-                    <div class="form-group"><label for="birthPlace" class="required">Lieu de naissance</label><input type="text" id="birthPlace" name="birthPlace" required></div>
-                </div>
-                <div class="form-group"><label for="email" class="required">Email</label><input type="email" id="email" name="email" required></div>
-                <div class="form-group"><label for="phone" class="required">Téléphone</label><input type="tel" id="phone" name="phone" placeholder="+228 XXXXXXXX" required></div>
-                
-                <h2 class="section-title">🆔 Pièce d'identité</h2>
-                <div class="form-row">
-                    <div class="form-group"><label for="idType" class="required">Type</label><select id="idType" name="idType" required><option value="">Sélectionnez</option><option value="cni">CNI</option><option value="passeport">Passeport</option><option value="permis">Permis</option></select></div>
-                    <div class="form-group"><label for="idNumber" class="required">Numéro</label><input type="text" id="idNumber" name="idNumber" required></div>
-                </div>
-                <div class="form-row">
-                    <div class="form-group"><label for="idIssueDate" class="required">Date d'émission</label><input type="date" id="idIssueDate" name="idIssueDate" required></div>
-                    <div class="form-group"><label for="idExpiryDate" class="required">Date d'expiration</label><input type="date" id="idExpiryDate" name="idExpiryDate" required></div>
-                </div>
-                
-                <h2 class="section-title">📍 Adresse</h2>
-                <div class="form-row">
-                    <div class="form-group"><label for="country" class="required">Pays</label><select id="country" name="country" required><option value="">Sélectionnez</option><option value="togo">Togo</option><option value="benin">Bénin</option><option value="cote-ivoire">Côte d'Ivoire</option><option value="senegal">Sénégal</option></select></div>
-                    <div class="form-group"><label for="region" class="required">Région</label><input type="text" id="region" name="region" required></div>
-                </div>
-                <div class="form-row">
-                    <div class="form-group"><label for="commune" class="required">Commune</label><input type="text" id="commune" name="commune" required></div>
-                    <div class="form-group"><label for="address">Adresse complète</label><input type="text" id="address" name="address"></div>
-                </div>
-                
-                <div class="form-group">
-                    <label for="gps">Coordonnées GPS</label>
-                    <div class="gps-section">
-                        <div class="gps-input"><input type="text" id="gps" name="gps" readonly placeholder="Cliquez sur le bouton"></div>
-                        <button type="button" id="generateGps" class="gps-button">📍 Générer GPS</button>
+                <!-- ========== TAB 1: Personal ========== -->
+                <div class="tab-panel tab-panel--active" id="panel-personal" role="tabpanel">
+                    <div class="form-section">
+                        <h2 class="section-title">👤 Identité</h2>
+                        <div class="form-row">
+                            <div class="form-group"><label for="firstName" class="required">Prénom</label><input type="text" id="firstName" name="firstName" required></div>
+                            <div class="form-group"><label for="lastName" class="required">Nom</label><input type="text" id="lastName" name="lastName" required></div>
+                        </div>
+                        <div class="form-row">
+                            <div class="form-group"><label for="birthDate" class="required">Date de naissance</label><input type="date" id="birthDate" name="birthDate" required></div>
+                            <div class="form-group"><label for="birthPlace" class="required">Lieu de naissance</label><input type="text" id="birthPlace" name="birthPlace" required></div>
+                        </div>
+                        <div class="form-group"><label for="email" class="required">Email</label><input type="email" id="email" name="email" required></div>
+                        <div class="form-group"><label for="phone" class="required">Téléphone</label><input type="tel" id="phone" name="phone" placeholder="+228 XXXXXXXX" required></div>
                     </div>
-                    <div id="gpsStatus" class="gps-status"></div>
-                    <div class="map-preview" id="mapPreview">🗺️ Aperçu de la localisation</div>
                 </div>
-                
-                <h2 class="section-title">📎 Documents</h2>
-                <div class="form-group">
-                    <label class="required">Pièce d'identité</label>
-                    <div class="file-upload"><input type="file" id="idCard" accept="image/*" required><label for="idCard"><span class="file-upload-icon">📄</span><span>Télécharger</span></label></div>
-                    <div class="preview-container"><div class="preview-box" id="idCardPreview">🖼️ Aperçu</div></div>
+
+                <!-- ========== TAB 2: ID Card ========== -->
+                <div class="tab-panel" id="panel-idcard" role="tabpanel">
+                    <div class="form-section">
+                        <h2 class="section-title">🆔 Pièce d'identité</h2>
+                        <div class="form-row">
+                            <div class="form-group"><label for="idType" class="required">Type</label><select id="idType" name="idType" required><option value="">Sélectionnez</option><option value="cni">CNI</option><option value="passeport">Passeport</option><option value="permis">Permis</option></select></div>
+                            <div class="form-group"><label for="idNumber" class="required">Numéro</label><input type="text" id="idNumber" name="idNumber" required></div>
+                        </div>
+                        <div class="form-row">
+                            <div class="form-group"><label for="idIssueDate" class="required">Date d'émission</label><input type="date" id="idIssueDate" name="idIssueDate" required></div>
+                            <div class="form-group"><label for="idExpiryDate" class="required">Date d'expiration</label><input type="date" id="idExpiryDate" name="idExpiryDate" required></div>
+                        </div>
+                    </div>
                 </div>
-                <div class="form-group">
-                    <label class="required">Selfie avec pièce</label>
-                    <div class="file-upload"><input type="file" id="selfie" accept="image/*" required><label for="selfie"><span class="file-upload-icon">📸</span><span>Télécharger</span></label></div>
-                    <div class="preview-container"><div class="preview-box" id="selfiePreview">🖼️ Aperçu</div></div>
+
+                <!-- ========== TAB 3: Address ========== -->
+                <div class="tab-panel" id="panel-address" role="tabpanel">
+                    <div class="form-section">
+                        <h2 class="section-title">📍 Adresse</h2>
+                        <div class="form-row">
+                            <div class="form-group"><label for="country" class="required">Pays</label><select id="country" name="country" required><option value="">Sélectionnez</option><option value="togo">Togo</option><option value="benin">Bénin</option><option value="cote-ivoire">Côte d'Ivoire</option><option value="senegal">Sénégal</option></select></div>
+                            <div class="form-group"><label for="region" class="required">Région</label><input type="text" id="region" name="region" required></div>
+                        </div>
+                        <div class="form-row">
+                            <div class="form-group"><label for="commune" class="required">Commune</label><input type="text" id="commune" name="commune" required></div>
+                            <div class="form-group"><label for="address">Adresse complète</label><input type="text" id="address" name="address"></div>
+                        </div>
+                        <div class="form-group">
+                            <label for="gps">Coordonnées GPS</label>
+                            <div class="gps-section">
+                                <div class="gps-section__input"><input type="text" id="gps" name="gps" readonly placeholder="Cliquez sur le bouton"></div>
+                                <button type="button" id="generateGps" class="gps-section__btn">📍 Générer GPS</button>
+                            </div>
+                            <div class="gps-status" id="gpsStatus"></div>
+                            <div class="map-preview" id="mapPreview">🗺️ Aperçu de la localisation</div>
+                        </div>
+                    </div>
                 </div>
-                
-                <h2 class="section-title">💳 Carte virtuelle</h2>
-                <div id="cardDetailsDisplay" class="card-details-display" style="display: none;">
-                    <div class="card-type-icon" id="cardTypeIcon">💳</div>
-                    <div class="card-number-display" id="cardNumberDisplay"></div>
-                    <div id="cardHolderDisplay"></div>
-                    <div id="cardExpiryDisplay"></div>
-                    <div id="cardCvvDisplay"></div>
+
+                <!-- ========== TAB 4: Documents ========== -->
+                <div class="tab-panel" id="panel-docs" role="tabpanel">
+                    <div class="form-section">
+                        <h2 class="section-title">📎 Documents</h2>
+                        <div class="form-group">
+                            <label class="required">Pièce d'identité</label>
+                            <div class="file-upload"><input type="file" id="idCard" accept="image/*" required><label for="idCard"><span class="file-upload__icon">📄</span><span>Télécharger</span></label></div>
+                            <div class="preview-container"><div class="preview-box" id="idCardPreview">🖼️ Aperçu</div></div>
+                        </div>
+                        <div class="form-group">
+                            <label class="required">Selfie avec pièce</label>
+                            <div class="file-upload"><input type="file" id="selfie" accept="image/*" required><label for="selfie"><span class="file-upload__icon">📸</span><span>Télécharger</span></label></div>
+                            <div class="preview-container"><div class="preview-box" id="selfiePreview">🖼️ Aperçu</div></div>
+                        </div>
+                    </div>
                 </div>
-                
-                <div class="form-group">
-                    <label for="cardType" class="required">Type de carte</label>
-                    <select id="cardType" name="cardType" required><option value="">Sélectionnez</option><option value="visa">💳 Visa</option><option value="mastercard">💳 MasterCard</option></select>
+
+                <!-- ========== TAB 5: Card ========== -->
+                <div class="tab-panel" id="panel-card" role="tabpanel">
+                    <div class="form-section">
+                        <h2 class="section-title">💳 Carte virtuelle</h2>
+
+                        <div class="vc-wrapper" id="cardPreviewWrapper" style="display:none">
+                            <div class="virtual-card" id="virtualCardPreview">
+                                <div class="virtual-card__top">
+                                    <div class="vc-top-left">
+                                        <div class="virtual-card__chip"><div class="chip-inner"><span></span><span></span></div></div>
+                                        <div class="vc-contactless"><i class="fas fa-wifi"></i></div>
+                                    </div>
+                                    <div class="virtual-card__brand" id="previewBrand">VISA</div>
+                                </div>
+                                <div class="virtual-card__number" id="previewNumber">•••• •••• •••• ••••</div>
+                                <div style="display:flex;justify-content:space-between;align-items:center;position:relative;z-index:1">
+                                    <span class="virtual-card__cvv" id="previewCvv">CVV: ***</span>
+                                </div>
+                                <div class="virtual-card__bottom">
+                                    <div class="virtual-card__holder">PORTEUR<strong id="previewHolder">NOM PRÉNOM</strong></div>
+                                    <div class="virtual-card__expiry">VALIDE JUSQU'AU<strong id="previewExpiry">MM/AA</strong></div>
+                                </div>
+                                <div class="vc-footer">
+                                    <span class="virtual-card__flag">Made in Togo</span>
+                                    <div class="virtual-card__dot" id="previewDot"></div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="cardType" class="required">Type de carte</label>
+                            <select id="cardType" name="cardType" required><option value="">Sélectionnez</option><option value="visa">💳 Visa</option><option value="mastercard">💳 MasterCard</option></select>
+                        </div>
+                        <div class="form-group"><label for="purpose" class="required">Objet d'obtention</label><textarea id="purpose" name="purpose" rows="3" required></textarea></div>
+                        <div class="form-group"><label for="notes">Notes supplémentaires</label><textarea id="notes" name="notes" rows="2"></textarea></div>
+                    </div>
                 </div>
-                
-                <div class="form-group"><label for="purpose" class="required">Objet d'obtention</label><textarea id="purpose" name="purpose" rows="3" required></textarea></div>
-                <div class="form-group"><label for="notes">Notes supplémentaires</label><textarea id="notes" name="notes" rows="2"></textarea></div>
-                
-                <div class="buttons">
-                    <button type="button" id="paymentBtn" class="btn btn-payment"><span>💳</span> Payer 5000 FCFA</button>
+
+                <!-- Tab navigation buttons -->
+                <div class="form-section" style="padding-bottom:var(--space-lg)">
+                    <div class="tab-actions">
+                        <div class="tab-actions__left">
+                            <button type="button" class="btn btn--prev btn--hidden" id="prevBtn"><i class="fas fa-chevron-left"></i> Précédent</button>
+                        </div>
+                        <div class="tab-actions__right">
+                            <button type="button" class="btn btn--next" id="nextBtn">Suivant <i class="fas fa-chevron-right"></i></button>
+                            <button type="button" id="paymentBtn" class="btn btn--primary" style="display:none"><span>💳</span> Payer 5000 FCFA</button>
+                        </div>
+                    </div>
                 </div>
             </form>
         </div>
-        
+
         <footer>
-            <div class="conditions-section">
+            <div class="info-section info-section--conditions" style="margin:0 0 var(--space-sm)">
                 <h3>📜 Conditions générales</h3>
                 <ul>
-                    <li>💰 Frais de chargement: 5%</li>
-                    <li>🏧 Frais de retrait: 9%</li>
-                    <li>🔧 Frais de maintenance: 5 FCFA/mois</li>
+                    <li>💰 Frais de chargement : 5%</li>
+                    <li>🏧 Frais de retrait : 9%</li>
+                    <li>🔧 Frais de maintenance : 5 FCFA/mois</li>
                     <li>⏰ Carte valable 5 ans</li>
                 </ul>
             </div>
@@ -589,129 +1170,339 @@
     </div>
 
     <script>
-        // Fonctions de génération de carte
+        // =========================================
+        // TAB SYSTEM
+        // =========================================
+        var TAB_ORDER = ['personal', 'idcard', 'address', 'docs', 'card'];
+        var currentTabIndex = 0;
+
+        function openTab(index) {
+            var tabs = document.querySelectorAll('.tab-nav__btn');
+            var panels = document.querySelectorAll('.tab-panel');
+            var prevBtn = document.getElementById('prevBtn');
+            var nextBtn = document.getElementById('nextBtn');
+            var payBtn = document.getElementById('paymentBtn');
+
+            tabs.forEach(function(t) { t.classList.remove('tab-nav__btn--active');
+                t.setAttribute('aria-selected', 'false'); });
+            panels.forEach(function(p) { p.classList.remove('tab-panel--active'); });
+
+            tabs[index].classList.add('tab-nav__btn--active');
+            tabs[index].setAttribute('aria-selected', 'true');
+            document.getElementById('panel-' + TAB_ORDER[index]).classList.add('tab-panel--active');
+
+            prevBtn.classList.toggle('btn--hidden', index === 0);
+
+            if (index === TAB_ORDER.length - 1) {
+                nextBtn.style.display = 'none';
+                payBtn.style.display = 'inline-flex';
+            } else {
+                nextBtn.style.display = 'inline-flex';
+                payBtn.style.display = 'none';
+            }
+
+            currentTabIndex = index;
+            tabs[index].scrollIntoView({ behavior: 'smooth', inline: 'center', block: 'nearest' });
+        }
+
+        document.getElementById('nextBtn').addEventListener('click', function() {
+            if (currentTabIndex < TAB_ORDER.length - 1) {
+                openTab(currentTabIndex + 1);
+            }
+        });
+
+        document.getElementById('prevBtn').addEventListener('click', function() {
+            if (currentTabIndex > 0) {
+                openTab(currentTabIndex - 1);
+            }
+        });
+
+        document.querySelectorAll('.tab-nav__btn').forEach(function(btn) {
+            btn.addEventListener('click', function() {
+                var tab = this.getAttribute('data-tab');
+                var index = TAB_ORDER.indexOf(tab);
+                if (index !== -1) openTab(index);
+            });
+        });
+
+        // =========================================
+        // TAB SYNC — mark completed tabs
+        // =========================================
+        function syncTabs() {
+            var fieldsByTab = {
+                personal: ['firstName', 'lastName', 'birthDate', 'birthPlace', 'email', 'phone'],
+                idcard: ['idType', 'idNumber', 'idIssueDate', 'idExpiryDate'],
+                address: ['country', 'region', 'commune'],
+                docs: ['idCard', 'selfie'],
+                card: ['cardType', 'purpose']
+            };
+
+            TAB_ORDER.forEach(function(tabId, i) {
+                var btn = document.querySelector('.tab-nav__btn[data-tab="' + tabId + '"]');
+                var dot = btn ? btn.querySelector('.tab-nav__dot') : null;
+                var fields = fieldsByTab[tabId];
+                var allDone = fields.every(function(f) {
+                    var el = document.getElementById(f);
+                    if (!el) return false;
+                    if (el.type === 'file') return el.files && el.files.length > 0;
+                    return el.value && el.value.trim() !== '';
+                });
+
+                if (dot) {
+                    dot.classList.toggle('tab-nav__dot--done', allDone);
+                    dot.textContent = allDone ? '✓' : (i + 1);
+                }
+            });
+        }
+
+        // Bind sync to all inputs/selects/textareas
+        document.querySelectorAll('#orderForm input, #orderForm select, #orderForm textarea').forEach(function(el) {
+            el.addEventListener('input', syncTabs);
+            el.addEventListener('change', syncTabs);
+        });
+
+        // Also sync on file select
+        document.getElementById('idCard').addEventListener('change', syncTabs);
+        document.getElementById('selfie').addEventListener('change', syncTabs);
+
+        // =========================================
+        // CARD GENERATION
+        // =========================================
         function generateCardNumber(cardType) {
-            let prefix = cardType === 'visa' ? '4' : '5';
-            let cardNumber = prefix;
-            for (let i = 0; i < 15; i++) cardNumber += Math.floor(Math.random() * 10);
+            var prefix = cardType === 'visa' ? '4' : '5';
+            var cardNumber = prefix;
+            for (var i = 0; i < 15; i++) cardNumber += Math.floor(Math.random() * 10);
             return cardNumber.replace(/(\d{4})/g, '$1 ').trim();
         }
-        
+
         function generateExpiryDate() {
-            const now = new Date();
-            return `${(now.getMonth() + 1).toString().padStart(2, '0')}/${(now.getFullYear() + 5).toString().slice(-2)}`;
+            var now = new Date();
+            var m = (now.getMonth() + 1).toString().padStart(2, '0');
+            var y = (now.getFullYear() + 5).toString().slice(-2);
+            return m + '/' + y;
         }
-        
-        function generateCVV() { return Math.floor(100 + Math.random() * 900).toString(); }
-        
+
+        function generateCVV() {
+            return Math.floor(100 + Math.random() * 900).toString();
+        }
+
         function updateCardDisplay() {
-            const cardType = document.getElementById('cardType').value;
-            const firstName = document.getElementById('firstName').value;
-            const lastName = document.getElementById('lastName').value;
-            const display = document.getElementById('cardDetailsDisplay');
-            
+            var cardType = document.getElementById('cardType').value;
+            var firstName = document.getElementById('firstName').value;
+            var lastName = document.getElementById('lastName').value;
+            var wrapper = document.getElementById('cardPreviewWrapper');
+
             if (cardType && firstName && lastName) {
-                const cardNumber = generateCardNumber(cardType);
-                const expiry = generateExpiryDate();
-                const cvv = generateCVV();
-                const holder = `${firstName.toUpperCase()} ${lastName.toUpperCase()}`;
-                
-                document.getElementById('cardTypeIcon').innerHTML = cardType === 'visa' ? '💳 VISA' : '💳 MasterCard';
-                document.getElementById('cardNumberDisplay').textContent = cardNumber;
-                document.getElementById('cardHolderDisplay').textContent = `Titulaire: ${holder}`;
-                document.getElementById('cardExpiryDisplay').textContent = `Expiration: ${expiry}`;
-                document.getElementById('cardCvvDisplay').textContent = `CVV: ${cvv}`;
-                display.className = `card-details-display ${cardType}`;
-                display.style.display = 'block';
-                
-                window.generatedCardInfo = { cardNumber, expiryDate: expiry, cvv, cardHolder: holder, cardType };
+                var cardNumber = generateCardNumber(cardType);
+                var expiry = generateExpiryDate();
+                var cvv = generateCVV();
+                var holder = firstName.toUpperCase() + ' ' + lastName.toUpperCase();
+
+                var card = document.getElementById('virtualCardPreview');
+                card.className = 'virtual-card virtual-card--' + cardType;
+
+                document.getElementById('previewBrand').textContent = cardType === 'visa' ? 'VISA' : 'MASTERCARD';
+                document.getElementById('previewNumber').textContent = cardNumber;
+                document.getElementById('previewCvv').textContent = 'CVV: ' + cvv;
+                document.getElementById('previewHolder').textContent = holder;
+                document.getElementById('previewExpiry').textContent = expiry;
+
+                var dot = document.getElementById('previewDot');
+                dot.className = 'virtual-card__dot';
+                if (cardType === 'visa') {
+                    dot.classList.add('virtual-card__dot--visa');
+                } else {
+                    dot.classList.add('virtual-card__dot--mc');
+                }
+
+                wrapper.style.display = 'block';
+
+                window.generatedCardInfo = {
+                    cardNumber: cardNumber,
+                    expiryDate: expiry,
+                    cvv: cvv,
+                    cardHolder: holder,
+                    cardType: cardType
+                };
             } else {
-                display.style.display = 'none';
+                wrapper.style.display = 'none';
             }
         }
-        
-        document.getElementById('cardType').addEventListener('change', updateCardDisplay);
+
+        // =========================================
+        // FEE UPDATE by card type
+        // =========================================
+        var FEE_TABLE = {
+            visa:   { charge: '5%',  withdraw: '9%',  acquisition: '5000 FCFA', maintenance: '50 FCFA/mois', maintVal: 50 },
+            mastercard: { charge: '10%', withdraw: '25%', acquisition: '5000 FCFA', maintenance: '200 FCFA/mois', maintVal: 200 }
+        };
+
+        function updateFees() {
+            var ct = document.getElementById('cardType').value;
+            var fees = FEE_TABLE[ct];
+            if (fees) {
+                document.getElementById('feeCharge').textContent = fees.charge;
+                document.getElementById('feeWithdraw').textContent = fees.withdraw;
+                document.getElementById('feeAcquisition').textContent = fees.acquisition;
+                document.getElementById('feeMaintenance').textContent = fees.maintenance;
+                document.getElementById('feeConditionCharge').textContent = '💳 Frais de chargement : ' + fees.charge;
+                document.getElementById('feeConditionWithdraw').textContent = '💳 Frais de retrait : ' + fees.withdraw;
+                document.getElementById('feeCondMaintValue').textContent = fees.maintVal;
+            } else {
+                document.getElementById('feeCharge').textContent = '—';
+                document.getElementById('feeWithdraw').textContent = '—';
+                document.getElementById('feeAcquisition').textContent = '—';
+                document.getElementById('feeMaintenance').textContent = '—';
+            }
+        }
+
+        document.getElementById('cardType').addEventListener('change', function() {
+            updateCardDisplay();
+            updateFees();
+            syncTabs();
+        });
+
+        updateFees();
         document.getElementById('firstName').addEventListener('input', updateCardDisplay);
         document.getElementById('lastName').addEventListener('input', updateCardDisplay);
-        
+
+        // =========================================
         // GPS
+        // =========================================
         document.getElementById('generateGps').addEventListener('click', function() {
-            const lat = (Math.random() * 11 + 5).toFixed(6);
-            const lng = (Math.random() * 20 - 18).toFixed(6);
-            document.getElementById('gps').value = `${lat}° N, ${Math.abs(lng)}° ${lng < 0 ? 'W' : 'E'}`;
-            document.getElementById('gpsStatus').innerHTML = '✅ Coordonnées générées';
-            document.getElementById('gpsStatus').className = 'gps-status gps-success';
-            document.getElementById('mapPreview').innerHTML = `<div style="display:flex;align-items:center;justify-content:center;height:100%;">📍 ${lat}° N, ${Math.abs(lng)}° ${lng < 0 ? 'W' : 'E'}</div>`;
+            var lat = (Math.random() * 11 + 5).toFixed(6);
+            var lng = (Math.random() * 20 - 18).toFixed(6);
+            document.getElementById('gps').value = lat + '° N, ' + Math.abs(lng) + '° ' + (lng < 0 ? 'W' : 'E');
+            var status = document.getElementById('gpsStatus');
+            status.innerHTML = '✅ Coordonnées générées';
+            status.className = 'gps-status gps-status--success';
+            document.getElementById('mapPreview').innerHTML = '<div style="display:flex;align-items:center;justify-content:center;height:100%">📍 ' + lat + '° N, ' + Math.abs(lng) + '° ' + (lng < 0 ? 'W' : 'E') + '</div>';
         });
-        
-        // Aperçu images
+
+        // =========================================
+        // IMAGE PREVIEWS
+        // =========================================
         document.getElementById('idCard').addEventListener('change', function(e) {
             if (e.target.files[0]) {
-                const reader = new FileReader();
-                reader.onload = e => document.getElementById('idCardPreview').innerHTML = `<img src="${e.target.result}">`;
+                var reader = new FileReader();
+                reader.onload = function(ev) {
+                    document.getElementById('idCardPreview').innerHTML = '<img src="' + ev.target.result + '">';
+                };
                 reader.readAsDataURL(e.target.files[0]);
             }
         });
-        
+
         document.getElementById('selfie').addEventListener('change', function(e) {
             if (e.target.files[0]) {
-                const reader = new FileReader();
-                reader.onload = e => document.getElementById('selfiePreview').innerHTML = `<img src="${e.target.result}">`;
+                var reader = new FileReader();
+                reader.onload = function(ev) {
+                    document.getElementById('selfiePreview').innerHTML = '<img src="' + ev.target.result + '">';
+                };
                 reader.readAsDataURL(e.target.files[0]);
             }
         });
-        
-        // Envoi WhatsApp automatique
-        async function sendWhatsAppNotification(formData, cardInfo, paymentSuccess = true) {
-            const message = `${paymentSuccess ? '✅' : '🆕'} *${paymentSuccess ? 'PAIEMENT VALIDÉ - COMMANDE DE CARTE VIRTUELLE*' : 'NOUVELLE COMMANDE DE CARTE VIRTUELLE*'}%0A%0A` +
-                `👤 *INFORMATIONS PERSONNELLES*%0A` +
-                `Prénom: ${formData.firstName}%0A` +
-                `Nom: ${formData.lastName}%0A` +
-                `Date de naissance: ${formData.birthDate}%0A` +
-                `Lieu: ${formData.birthPlace}%0A` +
-                `Email: ${formData.email}%0A` +
-                `Téléphone: ${formData.phone}%0A%0A` +
-                `🆔 *PIÈCE D'IDENTITÉ*%0A` +
-                `Type: ${formData.idType}%0A` +
-                `Numéro: ${formData.idNumber}%0A` +
-                `Émission: ${formData.idIssueDate}%0A` +
-                `Expiration: ${formData.idExpiryDate}%0A%0A` +
-                `📍 *ADRESSE*%0A` +
-                `Pays: ${formData.country}%0A` +
-                `Région: ${formData.region}%0A` +
-                `Commune: ${formData.commune}%0A` +
-                `GPS: ${formData.gps || 'Non générées'}%0A%0A` +
-                `💳 *CARTE VIRTUELLE*%0A` +
-                `Type: ${formData.cardType === 'visa' ? 'VISA' : 'MasterCard'}%0A` +
-                `Numéro: ${cardInfo.cardNumber}%0A` +
-                `Titulaire: ${cardInfo.cardHolder}%0A` +
-                `Expiration: ${cardInfo.expiryDate}%0A` +
-                `CVV: ${cardInfo.cvv}%0A` +
-                `Objet: ${formData.purpose}%0A` +
-                `Notes: ${formData.notes || 'Aucune'}%0A%0A` +
-                `💰 *MONTANT PAYÉ*: 5000 FCFA%0A` +
-                `📅 *Date*: ${new Date().toLocaleString('fr-FR')}`;
-            
-            window.open(`https://wa.me/22892871605?text=${encodeURIComponent(message)}`, '_blank');
+
+        // =========================================
+        // WHATSAPP NOTIFICATION
+        // =========================================
+        function sendWhatsAppNotification(formData, cardInfo, paymentSuccess) {
+            var ref = 'CMD-' + Date.now().toString().slice(-8);
+            var now = new Date();
+            var dateStr = now.toLocaleDateString('fr-FR', { day: '2-digit', month: 'long', year: 'numeric' });
+            var timeStr = now.toLocaleTimeString('fr-FR', { hour: '2-digit', minute: '2-digit' });
+            var cardTypeName = formData.cardType === 'visa' ? 'VISA' : 'MasterCard';
+            var fees = FEE_TABLE[formData.cardType] || { charge: '—', withdraw: '—', maintVal: '—' };
+
+            var msg = '';
+            msg += '╔══════════════════════════════╗%0A';
+            msg += '║   ' + (paymentSuccess ? '✅ PAIEMENT VALIDÉ' : '🆕 NOUVELLE COMMANDE') + '   ║%0A';
+            msg += '╚══════════════════════════════╝%0A';
+            msg += '%0A';
+            msg += '┌─ *RÉFÉRENCE* ───────────────┐%0A';
+            msg += '│  🆔 Réf: #' + ref + '%0A';
+            msg += '│  📅 ' + dateStr + ' à ' + timeStr + '%0A';
+            msg += '│  💳 Carte: ' + cardTypeName + '%0A';
+            msg += '└──────────────────────────────┘%0A';
+            msg += '%0A';
+            msg += '┌─ *👤 CLIENT* ────────────────┐%0A';
+            msg += '│  Prénom: ' + formData.firstName + '%0A';
+            msg += '│  Nom: ' + formData.lastName + '%0A';
+            msg += '│  📧 ' + formData.email + '%0A';
+            msg += '│  📞 ' + formData.phone + '%0A';
+            msg += '│  🎂 Né(e) le ' + formData.birthDate + '%0A';
+            msg += '│     à ' + formData.birthPlace + '%0A';
+            msg += '└──────────────────────────────┘%0A';
+            msg += '%0A';
+            msg += '┌─ *🆔 PIÈCE D\'IDENTITÉ* ──────┐%0A';
+            msg += '│  ' + formData.idType.toUpperCase() + ': ' + formData.idNumber + '%0A';
+            msg += '│  📅 Émis le ' + formData.idIssueDate + '%0A';
+            msg += '│  ⏳ Expire le ' + formData.idExpiryDate + '%0A';
+            msg += '└──────────────────────────────┘%0A';
+            msg += '%0A';
+            msg += '┌─ *📍 ADRESSE* ───────────────┐%0A';
+            msg += '│  Pays: ' + formData.country + '%0A';
+            msg += '│  Région: ' + formData.region + '%0A';
+            msg += '│  Commune: ' + formData.commune + '%0A';
+            if (formData.address) msg += '│  📫 ' + formData.address + '%0A';
+            msg += '│  📌 GPS: ' + (formData.gps || 'Non générées') + '%0A';
+            msg += '└──────────────────────────────┘%0A';
+            msg += '%0A';
+            msg += '┌─ *💳 CARTE VIRTUELLE* ───────┐%0A';
+            msg += '│  ' + cardTypeName + '%0A';
+            msg += '│  🔢 ' + cardInfo.cardNumber + '%0A';
+            msg += '│  👤 ' + cardInfo.cardHolder + '%0A';
+            msg += '│  📅 Exp: ' + cardInfo.expiryDate + '%0A';
+            msg += '│  🔒 CVV: ' + cardInfo.cvv + '%0A';
+            msg += '│  📝 Motif: ' + formData.purpose + '%0A';
+            if (formData.notes) msg += '│  📋 Notes: ' + formData.notes + '%0A';
+            msg += '└──────────────────────────────┘%0A';
+            msg += '%0A';
+            msg += '┌─ *💰 RÉCAPITULATIF* ─────────┐%0A';
+            msg += '│  🎫 Acquisition: 5 000 FCFA%0A';
+            msg += '│  📈 Frais chargement: ' + fees.charge + '%0A';
+            msg += '│  🏧 Frais retrait: ' + fees.withdraw + '%0A';
+            msg += '│  🔧 Maintenance: ' + fees.maintVal + ' FCFA/mois%0A';
+            msg += '│  ────────────────────────────%0A';
+            msg += '│  💵 *Total payé: 5 000 FCFA*%0A';
+            msg += '│  ✅ *Statut: ' + (paymentSuccess ? 'Payé' : 'En attente') + '*%0A';
+            msg += '└──────────────────────────────┘%0A';
+            msg += '%0A';
+            msg += '╔══════════════════════════════╗%0A';
+            msg += '║  📞 Service: 22892871605      ║%0A';
+            msg += '║  🔒 Portefeuille Digital Togo ║%0A';
+            msg += '╚══════════════════════════════╝';
+
+            window.open('https://wa.me/22892871605?text=' + encodeURIComponent(msg), '_blank');
         }
-        
-        // Validation des champs
+
+        // =========================================
+        // FORM VALIDATION
+        // =========================================
         function validateForm() {
-            const required = ['firstName', 'lastName', 'email', 'phone', 'birthDate', 'birthPlace', 'idType', 'idNumber', 'idIssueDate', 'idExpiryDate', 'country', 'region', 'commune', 'cardType', 'purpose'];
-            for (let field of required) {
-                if (!document.getElementById(field).value) {
-                    alert(`⚠️ Veuillez remplir le champ "${document.querySelector(`[for="${field}"]`).textContent.replace(' *', '')}".`);
+            var required = ['firstName', 'lastName', 'email', 'phone', 'birthDate', 'birthPlace', 'idType', 'idNumber', 'idIssueDate', 'idExpiryDate', 'country', 'region', 'commune', 'cardType', 'purpose'];
+            for (var i = 0; i < required.length; i++) {
+                var el = document.getElementById(required[i]);
+                if (!el || !el.value) {
+                    var label = document.querySelector('[for="' + required[i] + '"]');
+                    var name = label ? label.textContent.replace(' *', '') : required[i];
+                    alert('⚠️ Veuillez remplir le champ "' + name + '".');
+                    var tabIndex = -1;
+                    TAB_ORDER.forEach(function(t, idx) {
+                        var fields = { personal: ['firstName', 'lastName', 'birthDate', 'birthPlace', 'email', 'phone'], idcard: ['idType', 'idNumber', 'idIssueDate', 'idExpiryDate'], address: ['country', 'region', 'commune'], docs: [], card: ['cardType', 'purpose'] };
+                        if (fields[t].indexOf(required[i]) !== -1) tabIndex = idx;
+                    });
+                    if (tabIndex !== -1) openTab(tabIndex);
                     return false;
                 }
             }
             if (!document.getElementById('idCard').files[0] || !document.getElementById('selfie').files[0]) {
                 alert('⚠️ Veuillez télécharger les deux images requises.');
+                openTab(3);
                 return false;
             }
             return true;
         }
-        
-        // Récupération des données du formulaire
+
         function getFormData() {
             return {
                 firstName: document.getElementById('firstName').value,
@@ -734,81 +1525,71 @@
                 notes: document.getElementById('notes').value
             };
         }
-        
-        // Paiement
-        document.getElementById('paymentBtn').addEventListener('click', async function() {
+
+        // =========================================
+        // PAYMENT
+        // =========================================
+        document.getElementById('paymentBtn').addEventListener('click', function() {
             if (!validateForm()) return;
-            
-            // Générer les infos de la carte
-            const firstName = document.getElementById('firstName').value;
-            const lastName = document.getElementById('lastName').value;
-            const cardType = document.getElementById('cardType').value;
-            const cardNumber = generateCardNumber(cardType);
-            const expiryDate = generateExpiryDate();
-            const cvv = generateCVV();
-            const cardHolder = `${firstName.toUpperCase()} ${lastName.toUpperCase()}`;
-            const cardInfo = { cardNumber, expiryDate, cvv, cardHolder, cardType };
-            
-            const formData = getFormData();
-            
-            // Afficher le loader
-            const loader = document.createElement('div');
+
+            var firstName = document.getElementById('firstName').value;
+            var lastName = document.getElementById('lastName').value;
+            var cardType = document.getElementById('cardType').value;
+            var cardNumber = generateCardNumber(cardType);
+            var expiryDate = generateExpiryDate();
+            var cvv = generateCVV();
+            var cardHolder = firstName.toUpperCase() + ' ' + lastName.toUpperCase();
+            var cardInfo = { cardNumber: cardNumber, expiryDate: expiryDate, cvv: cvv, cardHolder: cardHolder, cardType: cardType };
+            var formData = getFormData();
+
+            var loader = document.createElement('div');
             loader.className = 'loading-overlay';
             loader.innerHTML = '<div class="loading-spinner"></div><div class="loading-text">Redirection vers le paiement...</div>';
             document.body.appendChild(loader);
-            
-            // Stocker les données pour après le paiement
+
             sessionStorage.setItem('pendingCardOrder', JSON.stringify({
                 formData: formData,
                 cardInfo: cardInfo,
                 timestamp: new Date().toISOString()
             }));
-            
-            // Redirection vers FedaPay
-            setTimeout(() => {
+
+            setTimeout(function() {
                 window.location.href = 'https://me.fedapay.com/ZZTZ6KSL';
             }, 1000);
         });
-        
-        // Vérification du retour de paiement
+
+        // =========================================
+        // PAYMENT RETURN CHECK
+        // =========================================
         function checkPaymentReturn() {
-            const pendingOrder = sessionStorage.getItem('pendingCardOrder');
+            var pendingOrder = sessionStorage.getItem('pendingCardOrder');
             if (pendingOrder) {
-                const data = JSON.parse(pendingOrder);
-                
-                // Vérifier si le paiement a été effectué (simulation - en production, vérifier via paramètres URL)
-                const urlParams = new URLSearchParams(window.location.search);
-                const paymentSuccess = urlParams.get('payment') === 'success' || true; // Pour simulation
-                
+                var data = JSON.parse(pendingOrder);
+                var paymentSuccess = true;
+
                 if (paymentSuccess) {
-                    // Envoyer la confirmation WhatsApp
                     sendWhatsAppNotification(data.formData, data.cardInfo, true);
-                    
-                    // Afficher les infos de la carte à l'utilisateur
-                    const cardTypeName = data.cardInfo.cardType === 'visa' ? 'VISA' : 'MasterCard';
-                    alert(`✅ Félicitations ! Votre carte ${cardTypeName} a été créée avec succès !\n\n` +
-                          `💳 Numéro: ${data.cardInfo.cardNumber}\n` +
-                          `📅 Expiration: ${data.cardInfo.expiryDate}\n` +
-                          `🔒 CVV: ${data.cardInfo.cvv}\n\n` +
-                          `📱 Un message de confirmation a été envoyé.`);
-                    
-                    // Nettoyer la session
+
+                    var cardTypeName = data.cardInfo.cardType === 'visa' ? 'VISA' : 'MasterCard';
+                    alert('✅ Félicitations ! Votre carte ' + cardTypeName + ' a été créée avec succès !\n\n' +
+                        '💳 Numéro: ' + data.cardInfo.cardNumber + '\n' +
+                        '📅 Expiration: ' + data.cardInfo.expiryDate + '\n' +
+                        '🔒 CVV: ' + data.cardInfo.cvv + '\n\n' +
+                        '📱 Un message de confirmation a été envoyé.');
+
                     sessionStorage.removeItem('pendingCardOrder');
-                    
-                    // Rediriger vers la page d'accueil du portefeuille
-                    setTimeout(() => {
-                        if(confirm('Voulez-vous accéder à votre portefeuille ?')) {
+
+                    setTimeout(function() {
+                        if (confirm('Voulez-vous accéder à votre portefeuille ?')) {
                             window.location.href = 'portfolio code.html';
                         }
                     }, 2000);
                 }
             }
         }
-        
-        // Exécuter la vérification au chargement
+
         checkPaymentReturn();
-        
-        // Afficher un aperçu de la carte au chargement si des données existent
+        syncTabs();
         if (document.getElementById('firstName').value && document.getElementById('lastName').value && document.getElementById('cardType').value) {
             updateCardDisplay();
         }
